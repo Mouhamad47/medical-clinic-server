@@ -71,4 +71,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Schedule::class);
     }
+    public function major()
+    {
+        return $this->belongsTo(Major::class);
+    }
 }

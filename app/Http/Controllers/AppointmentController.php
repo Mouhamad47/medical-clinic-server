@@ -18,7 +18,7 @@ class AppointmentController extends Controller
             'start_hour'          => 'required',
             'end_hour'            => 'required',
             'date_of_appointment' => 'required',
-            'approved'            => 'required',
+            // 'approved'            => 'required',
             'section_id'          => 'required'
         ]);
 
@@ -43,7 +43,7 @@ class AppointmentController extends Controller
     }
 
 
-    public function update($id)
+    public function approve($id)
     {
         $appointment = Appointment::where('id', $id)->update(['approved' => 1]);
         return json_encode('Appointment was approved');

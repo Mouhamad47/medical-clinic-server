@@ -9,34 +9,23 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    // function updateProfile(Request $request)
-	// {
-	// 	$user = Auth::user();
-	// 	$id = $user->id;
-	// 	$validator = Validator::make($request->all(), [
-	// 		'dob' => 'required|date_format:Y-m-d|before:' . Carbon::now()->subYears(18)->format('Y-m-d'),
-	// 		'height' => 'integer',
-	// 		'weight' => 'integer',
-	// 		'nationality' => 'string|between:2,100',
-	// 		'net_worth' => 'integer',
-	// 		'currency' => 'string',
-	// 		'bio' => 'string|max:400'
-	// 	]);
 
-	// 	if ($validator->fails()) {
-	// 		return response()->json(array(
-	// 			"status" => false,
-	// 			"errors" => $validator->errors()
-	// 		), 400);
-	// 	}
+	public function getAllDoctors()
+	{
+		$doctors = User::where('role', 2)->get();
+		foreach ($doctors as $doctor) {
+			$doctor->major;
+		}
+		return json_decode($doctors);
+	}
 
-	// 	$update_profile = User::where('id', $id)->update(
-	// 		$validator->validated()
-	// 	);
 
-	// 	return response()->json([
-	// 		'status' => true,
-	// 		'message' => 'Profile was successfully updated',
-	// 	], 201);
-	// }
+
+
+
+	public function getAllNurses()
+	{
+		$nurses = User::where('role', 3)->get();
+		return json_decode($nurses);
+	}
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\UserController;
 use App\Models\Appointment;
 use App\Models\Schedule;
 use App\Models\User;
@@ -38,13 +39,16 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
 
+    Route::get('getalldoctors',[UserController::class, 'getAllDoctors']);
+    Route::get('getallnurses',[UserController::class, 'getAllNurses']);
+
     Route::get('getjobapp',[JobApplicationController::class , 'getJobApp']);
-    Route::post('/createjobapp',[JobApplicationController::class,'create']);
-    Route::delete('/declinejobapp/{id}',[JobApplicationController::class,'decline']);
+    Route::post('createjobapp',[JobApplicationController::class,'create']);
+    Route::delete('declinejobapp/{id}',[JobApplicationController::class,'decline']);
 
     Route::get('getappointments',[AppointmentController::class, 'getAppointments']);
     Route::post('createappointment',[AppointmentController::class,'create']);
-    Route::put('appointmentapproved/{id}',[AppointmentController::class,'update']);
+    Route::put('approveappointment/{id}',[AppointmentController::class,'approve']);
     Route::delete('deleteappointment/{id}',[AppointmentController::class,'delete']);
 
     Route::get('getschedules',[ScheduleController::class,'getSchedules']);
@@ -53,18 +57,11 @@ Route::group([
 
     Route::get('getconsultations',[ConsultationController::class,'getConsultations']);
     Route::post('createconsultation',[ConsultationController::class,'createConsultation']);
+    Route::put('approveconsultation/{id}',[ConsultationController::class,'approveConsultation']);
 
     
 
-    Route::get('getbeds',[BedController::class,'getBeds']);
-    Route::post('createbed',[BedController::class,'createBed']);
-    Route::delete('deletebed',[BedController::class,'deleteBed']);
-
-    
-    Route::get('getrooms',[RoomController::class,'getRooms']);
-    Route::post('createroom',[RoomController::class,'createRoom']);
-    Route::post('updateroom',[RoomController::class, 'updateRoom']);
-    Route::delete('deleteroom/{id}',[RoomController::class,'deleteRoom']);
+  
 
     //edit profile
     // Route::post('updateprofile',[User::class, 'updateProfile']);

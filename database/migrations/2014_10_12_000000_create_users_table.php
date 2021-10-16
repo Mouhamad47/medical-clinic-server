@@ -23,8 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->date('date_of_employment');
             $table->integer('role');
-            // $table->foreignId('user_id')->constrained();
-
+            $table->foreignId('major_id')->constrained('majors');
             $table->rememberToken();
             $table->timestamps();
         });

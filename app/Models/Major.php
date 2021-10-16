@@ -10,13 +10,20 @@ class Major extends Model
     use HasFactory;
 
 
-    protected $fillable =[
+    protected $fillable = [
         'name',
-        
+
     ];
 
     public function consultation()
     {
         return $this->hasMany(Consultation::class);
     }
+
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
 }

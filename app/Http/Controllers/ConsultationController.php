@@ -21,7 +21,7 @@ class ConsultationController extends Controller
             'start_hour'             => 'required',
             'end_hour'               => 'required',
             'date_of_consultation'   => 'required',
-            'approved'               => 'required',
+            // 'approved'               => 'required',
             'major_id'               => 'required',
         ]);
 
@@ -51,6 +51,12 @@ class ConsultationController extends Controller
     {
         $consultation = Consultation::all();
         return response()->json($consultation, 200);
+    }
+
+    public function approveConsultation($id)
+    {
+        $appointment = Consultation::where('id', $id)->update(['approved' => 1]);
+        return json_encode('Consultation was approved');
     }
 
 
