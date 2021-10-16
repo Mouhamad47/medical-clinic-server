@@ -11,9 +11,10 @@ class ScheduleController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'start_date' => 'required',
-            'end_date'   => 'required',
-            'user_id'    => 'required'
+            'start_hour'       => 'required',
+            'end_hour'         => 'required',
+            'date_of_schedule' => 'required',
+            'user_id'          => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -32,7 +33,7 @@ class ScheduleController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Schedule successfully created',
-            'user' => $schedule
+            'schedule' => $schedule
         ], 201);
     }
 
@@ -41,9 +42,10 @@ class ScheduleController extends Controller
         $validator = Validator::make($request->all(), [
 			// 'dob' => 'required|date_format:Y-m-d|before:' . Carbon::now()->subYears(18)->format('Y-m-d'),
 			'id' => 'required|integer',
-            'start_date'  => 'required|date',
-			'end_date'    =>   'required|date',
-			'user_id' => 'required|integer',
+            'start_hour'       => 'required',
+            'end_hour'         => 'required',
+            'date_of_schedule' => 'required',
+            'user_id'          => 'required'
 		]);
 
         if ($validator->fails()) {

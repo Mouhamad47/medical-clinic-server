@@ -14,8 +14,15 @@ class Consultation extends Model
         'last_name',
         'phone_number',
         'address',
-        'start_date',
-        'end_date',
-        'spec',
+        'start_hour',
+        'end_hour',
+        'date_of_consultation',
+        'approved',
+        'major_id',
     ];
+
+    public function major()
+    {
+        return $this->belongsTo(Major::class);
+    }
 }

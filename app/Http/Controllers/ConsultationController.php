@@ -14,13 +14,15 @@ class ConsultationController extends Controller
     public function createConsultation(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'first_name'   => 'required|string|between:2,100',
-            'last_name'    => 'required|string|between:2,100',
-            'phone_number' => 'required|string|between:2,8',
-            'address'      => 'required|string|between:2,100',
-            'start_date'   => 'required',
-            'end_date'     => 'required',
-            'spec'         => 'required'
+            'first_name'             => 'required|string|between:2,100',
+            'last_name'              => 'required|string|between:2,100',
+            'phone_number'           => 'required|string|between:2,8',
+            'address'                => 'required|string|between:2,100',
+            'start_hour'             => 'required',
+            'end_hour'               => 'required',
+            'date_of_consultation'   => 'required',
+            'approved'               => 'required',
+            'major_id'               => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -39,7 +41,7 @@ class ConsultationController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Consultation successfully registered',
-            'user' => $consultation
+            'consultation' => $consultation
         ], 201);
     }
 

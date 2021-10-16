@@ -19,9 +19,11 @@ class CreateConsultationsTable extends Migration
             $table->string('last_name');
             $table->string('phone_number');
             $table->string('address');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('spec');
+            $table->time('start_hour');
+            $table->time('end_hour');
+            $table->date('date_of_consultation');
+            $table->boolean('approved')->default(0);
+            $table->foreignId('major_id')->constrained();
             $table->timestamps();
         });
     }

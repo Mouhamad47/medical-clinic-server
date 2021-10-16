@@ -11,9 +11,14 @@ class Schedule extends Model
 
 
     protected $fillable =[
-        'id',
-        'start_date',
-        'end_date',
+        'start_hour',
+        'end_hour',
+        'date_of_schedule',
         'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

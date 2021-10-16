@@ -11,13 +11,15 @@ class AppointmentController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string|between:2,100',
-            'last_name' => 'required|string|between:2,100',
-            'phone_number' => 'required|string|between:2,8',
-            'address' => 'required|string|between:2,100',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'section_id' => 'required'
+            'first_name'          => 'required|string|between:2,100',
+            'last_name'           => 'required|string|between:2,100',
+            'phone_number'        => 'required|string|between:2,8',
+            'address'             => 'required|string|between:2,100',
+            'start_hour'          => 'required',
+            'end_hour'            => 'required',
+            'date_of_appointment' => 'required',
+            'approved'            => 'required',
+            'section_id'          => 'required'
         ]);
 
         if ($validator->fails()) {

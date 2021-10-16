@@ -19,8 +19,9 @@ class CreateAppointmentsTable extends Migration
             $table->string('last_name');
             $table->string('phone_number');
             $table->string('address');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->time('start_hour');
+            $table->time('end_hour');
+            $table->date('date_of_appointment');
             $table->boolean('approved')->default(0);
             $table->foreignId('section_id')->constrained();
 
