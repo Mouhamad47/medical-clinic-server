@@ -53,11 +53,11 @@ class AuthController extends Controller
             'first_name' => 'required|string|between:2,100',
             'last_name'  => 'required|string|between:2,100',
             'email'      => 'required|string|email|max:100|unique:users',
-            'password'   => 'required|string|confirmed|min:6',
+            'password'   => 'required|string|min:6',
             'address'    => 'required|string|between:2,100',
-            'major'      => 'required|string|between:2,100',
-            'role'       => 'required|string|between:2,100',
-            'user_id'    => 'required|integer',
+            'major_id'      => 'required|integer|between:1,10',
+            'role'       => 'required|integer|between:1,3',
+            // 'user_id'    => 'required|integer',
             
 
         ]);

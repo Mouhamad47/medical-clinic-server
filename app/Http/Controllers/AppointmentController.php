@@ -52,12 +52,19 @@ class AppointmentController extends Controller
     public function delete($id)
     {
         $appointment = Appointment::where('id', $id)->delete();
-        return json_encode('Appointment was deleted');
+        return response()->json([
+            'status'=>true,
+            'message' => 'Appointment was deleted',
+            'appointment' =>$appointment
+        ],201);
     }
 
     public function getAppointments()
     {
-        $appointment = Appointment::all();
-        return response()->json($appointment, 200);
+        $appointments = Appointment::all();
+        foreach($appointments as $appointment){
+            $appointment->section;
+        }
+        return response()->json($appointments, 200);
     }
 }

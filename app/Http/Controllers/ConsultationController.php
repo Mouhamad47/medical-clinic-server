@@ -49,8 +49,11 @@ class ConsultationController extends Controller
 
     public function getConsultations()
     {
-        $consultation = Consultation::all();
-        return response()->json($consultation, 200);
+        $consultations = Consultation::all();
+        foreach($consultations as $consultation){
+            $consultation->major;
+        }
+        return response()->json($consultations, 200);
     }
 
     public function approveConsultation($id)

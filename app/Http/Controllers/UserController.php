@@ -26,6 +26,14 @@ class UserController extends Controller
 	public function getAllNurses()
 	{
 		$nurses = User::where('role', 3)->get();
+		foreach ($nurses as $nurse) {
+			$nurse->major;
+		}
 		return json_decode($nurses);
+	}
+
+	public function getUserInfo()
+	{
+		return response()->json(auth()->user());
 	}
 }

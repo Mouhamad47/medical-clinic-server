@@ -41,7 +41,10 @@ class DatabaseSeeder extends Seeder
             "name" => "Dentist",
         ]);
         DB::table("majors")->insert([
-            "name" => "None",
+            "name" => "Registered Nurse",
+        ]);
+        DB::table("majors")->insert([
+            "name" => "Caregiver",
         ]);
 
 

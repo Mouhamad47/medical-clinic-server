@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BedController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\JobApplicationController;
+use App\Http\Controllers\MajorController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
@@ -39,6 +40,9 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
 
+    Route::get('getmajors',[MajorController::class,'getMajors']);
+    Route::get('getlasttwomajors',[MajorController::class,'lastTwo']);
+
     Route::get('getalldoctors',[UserController::class, 'getAllDoctors']);
     Route::get('getallnurses',[UserController::class, 'getAllNurses']);
 
@@ -49,7 +53,7 @@ Route::group([
     Route::get('getappointments',[AppointmentController::class, 'getAppointments']);
     Route::post('createappointment',[AppointmentController::class,'create']);
     Route::put('approveappointment/{id}',[AppointmentController::class,'approve']);
-    Route::delete('deleteappointment/{id}',[AppointmentController::class,'delete']);
+    Route::get('deleteappointment/{id}',[AppointmentController::class,'delete']);
 
     Route::get('getschedules',[ScheduleController::class,'getSchedules']);
     Route::post('createschedule',[ScheduleController::class,'create']);
@@ -58,6 +62,8 @@ Route::group([
     Route::get('getconsultations',[ConsultationController::class,'getConsultations']);
     Route::post('createconsultation',[ConsultationController::class,'createConsultation']);
     Route::put('approveconsultation/{id}',[ConsultationController::class,'approveConsultation']);
+
+    Route::get('userinfo',[UserController::class,'getUserInfo']);
 
     
 
