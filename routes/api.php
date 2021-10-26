@@ -12,6 +12,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
 use App\Models\Appointment;
+use App\Models\Consultation;
 use App\Models\Schedule;
 use App\Models\User;
 
@@ -70,7 +71,9 @@ Route::group([
     Route::post('updateprofile',[UserController::class,'updateProfile']);
     
     Route::post('updatepassword',[UserController::class,'updatePassword']);
-  
+    Route::get('getconsultationsbydate/{date}',[ConsultationController::class,'getConsultationByDate']);
+    // Route::post('getconsultationsbydate',[ConsultationController::class,'getConsultationByDate']);
+    
 
     //edit profile
     // Route::post('updateprofile',[User::class, 'updateProfile']);

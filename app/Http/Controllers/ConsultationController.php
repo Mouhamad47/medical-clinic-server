@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Consultation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ConsultationController extends Controller
@@ -69,6 +70,20 @@ class ConsultationController extends Controller
             'message' => 'Consultation was deleted',
             'appointment' =>$consultation
         ],201);
+    }
+
+    public function getConsultationByDate($date){
+        $user = Auth::user();
+        $major = $user->major->id;
+        $consultation = Consultation::where('major_id',$major)
+                                    ->where('date_of_consultation',$date)
+                                    ->where('approved', 1)
+                                    ->get();
+                                    
+      
+                                    
+                                    
+        return response()->json($consultation, 200);
     }
 
 
