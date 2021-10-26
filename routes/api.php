@@ -48,7 +48,7 @@ Route::group([
 
     Route::get('getjobapp',[JobApplicationController::class , 'getJobApp']);
     Route::post('createjobapp',[JobApplicationController::class,'create']);
-    Route::delete('declinejobapp/{id}',[JobApplicationController::class,'decline']);
+    Route::get('declinejobapp/{id}',[JobApplicationController::class,'decline']);
 
     Route::get('getappointments',[AppointmentController::class, 'getAppointments']);
     Route::post('createappointment',[AppointmentController::class,'create']);
@@ -62,11 +62,14 @@ Route::group([
     Route::get('getconsultations',[ConsultationController::class,'getConsultations']);
     Route::post('createconsultation',[ConsultationController::class,'createConsultation']);
     Route::put('approveconsultation/{id}',[ConsultationController::class,'approveConsultation']);
+    Route::delete('deleteconsultation/{id}',[ConsultationController::class,'declineConsultation']);
+
+
 
     Route::get('userinfo',[UserController::class,'getUserInfo']);
-
+    Route::post('updateprofile',[UserController::class,'updateProfile']);
     
-
+    Route::post('updatepassword',[UserController::class,'updatePassword']);
   
 
     //edit profile

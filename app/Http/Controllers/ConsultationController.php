@@ -62,6 +62,14 @@ class ConsultationController extends Controller
         return json_encode('Consultation was approved');
     }
 
+    public function declineConsultation($id){
+        $consultation = Consultation::where('id', $id)->delete();
+        return response()->json([
+            'status'=>true,
+            'message' => 'Consultation was deleted',
+            'appointment' =>$consultation
+        ],201);
+    }
 
 
 }
