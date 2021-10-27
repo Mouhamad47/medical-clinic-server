@@ -46,6 +46,9 @@ class DatabaseSeeder extends Seeder
         DB::table("majors")->insert([
             "name" => "Caregiver",
         ]);
+        DB::table("majors")->insert([
+            "name" => "Admin",
+        ]);
 
 
 
@@ -60,7 +63,7 @@ class DatabaseSeeder extends Seeder
             "address" => "Tripoli",
             "date_of_employment" => "2021-10-10",
             "role" => 1,
-            "major_id" => 9,
+            "major_id" => 11,
             
             
         ]);

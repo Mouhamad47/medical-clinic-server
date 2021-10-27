@@ -37,7 +37,7 @@ Route::group([
 ], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
-    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
 
@@ -52,18 +52,24 @@ Route::group([
     Route::get('declinejobapp/{id}',[JobApplicationController::class,'decline']);
 
     Route::get('getappointments',[AppointmentController::class, 'getAppointments']);
+    Route::get('getapprovedappointments',[AppointmentController::class, 'getApprovedAppointments']);
+    Route::get('getdeclinedappointments',[AppointmentController::class, 'getDeclinedAppointments']);
     Route::post('createappointment',[AppointmentController::class,'create']);
     Route::put('approveappointment/{id}',[AppointmentController::class,'approve']);
     Route::get('deleteappointment/{id}',[AppointmentController::class,'delete']);
+    Route::put('declineappointment/{id}',[AppointmentController::class,'decline']);
 
     Route::get('getschedules',[ScheduleController::class,'getSchedules']);
     Route::post('createschedule',[ScheduleController::class,'create']);
     Route::post('updateschedule',[ScheduleController::class, 'update']);
 
     Route::get('getconsultations',[ConsultationController::class,'getConsultations']);
+    Route::get('getapprovedconsultations',[ConsultationController::class,'getApprovedConsultations']);
+    Route::get('getdeclinedconsultations',[ConsultationController::class,'getDeclinedConsultations']);
     Route::post('createconsultation',[ConsultationController::class,'createConsultation']);
     Route::put('approveconsultation/{id}',[ConsultationController::class,'approveConsultation']);
-    Route::delete('deleteconsultation/{id}',[ConsultationController::class,'declineConsultation']);
+    Route::delete('deleteconsultation/{id}',[ConsultationController::class,'deleteConsultation']);
+    Route::put('declineconsultation/{id}',[ConsultationController::class,'declineConsultation']);
 
 
 

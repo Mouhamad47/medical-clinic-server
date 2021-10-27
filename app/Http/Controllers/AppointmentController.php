@@ -53,18 +53,48 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::where('id', $id)->delete();
         return response()->json([
-            'status'=>true,
+            'status' => true,
             'message' => 'Appointment was deleted',
-            'appointment' =>$appointment
-        ],201);
+            'appointment' => $appointment
+        ], 201);
     }
 
     public function getAppointments()
     {
+        // $appointments = Appointment::all()->where('approved', 0);
+        
         $appointments = Appointment::all();
-        foreach($appointments as $appointment){
+        foreach ($appointments as $appointment) {
             $appointment->section;
+            $appointmentArray = $appointment;
         }
-        return response()->json($appointments, 200);
+        return response()->json($appointmentArray, 200);
+    }
+
+    public function getApprovedAppointments()
+    {
+        $appointments = Appointment::all()->where('approved', 1);
+        foreach ($appointments as $appointment) {
+            $appointment->section;
+            $appointmentsArray[] = $appointment;
+        }
+        return response()->json($appointmentsArray, 200);
+    }
+
+    public function decline($id)
+    {
+        $appointment = Appointment::where('id', $id)->update(['approved' => 2]);
+        return json_encode('Appointment was declined');
+    }
+    
+    public function getDeclinedAppointments()
+    {
+        
+        $appointments = Appointment::all()->where('approved', 2);
+        foreach ($appointments as $appointment) {
+            $appointment->section;
+            $appointmentsArray[] = $appointment;
+        }
+        return response()->json($appointmentsArray, 200);
     }
 }

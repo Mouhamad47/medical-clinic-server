@@ -50,41 +50,68 @@ class ConsultationController extends Controller
 
     public function getConsultations()
     {
-        $consultations = Consultation::all();
-        foreach($consultations as $consultation){
+        
+        $consultations = Consultation::all()->where('approved', 0);
+        foreach ($consultations as $consultation) {
             $consultation->major;
+            $consultationsArray[] = $consultation;
         }
-        return response()->json($consultations, 200);
+        return response()->json($consultationsArray, 200);
+    }
+    public function getApprovedConsultations()
+    {
+        $consultations = Consultation::all()->where('approved', 1);
+        foreach ($consultations as $consultation) {
+            $consultation->major;
+            $consultationsArray[] = $consultation;
+        }
+        
+        return response()->json($consultationsArray, 200);
+    }
+    public function getDeclinedConsultations(){
+        $consultations = Consultation::all()->where('approved', 2);
+        foreach ($consultations as $consultation) {
+            $consultation->major;
+            $consultationsArray[] = $consultation;
+        }
+        
+        return response()->json($consultationsArray, 200);
     }
 
     public function approveConsultation($id)
     {
-        $appointment = Consultation::where('id', $id)->update(['approved' => 1]);
+        $consultation = Consultation::where('id', $id)->update(['approved' => 1]);
         return json_encode('Consultation was approved');
     }
 
-    public function declineConsultation($id){
+    public function deleteConsultation($id)
+    {
         $consultation = Consultation::where('id', $id)->delete();
         return response()->json([
-            'status'=>true,
+            'status' => true,
             'message' => 'Consultation was deleted',
-            'appointment' =>$consultation
-        ],201);
+            'appointment' => $consultation
+        ], 201);
     }
 
-    public function getConsultationByDate($date){
+    public function getConsultationByDate($date)
+    {
         $user = Auth::user();
         $major = $user->major->id;
-        $consultation = Consultation::where('major_id',$major)
-                                    ->where('date_of_consultation',$date)
-                                    ->where('approved', 1)
-                                    ->get();
-                                    
-      
-                                    
-                                    
+        $consultation = Consultation::where('major_id', $major)
+            ->where('date_of_consultation', $date)
+            ->where('approved', 1)
+            ->get();
+
+
+
+
         return response()->json($consultation, 200);
     }
 
-
+    public function declineConsultation($id)
+    {
+        $consultation = Consultation::where('id', $id)->update(['approved' => 2]);
+        return json_encode('Consultation was declined');
+    }
 }
