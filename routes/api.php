@@ -13,6 +13,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
 use App\Models\Appointment;
 use App\Models\Consultation;
+use App\Models\JobApplication;
 use App\Models\Schedule;
 use App\Models\User;
 
@@ -50,6 +51,7 @@ Route::group([
     Route::get('getjobapp',[JobApplicationController::class , 'getJobApp']);
     Route::post('createjobapp',[JobApplicationController::class,'create']);
     Route::get('declinejobapp/{id}',[JobApplicationController::class,'decline']);
+    Route::get('numberofcandidates',[JobApplicationController::class, 'getNumberOfCandidates']);
 
     Route::get('getappointments',[AppointmentController::class, 'getAppointments']);
     Route::get('getapprovedappointments',[AppointmentController::class, 'getApprovedAppointments']);
@@ -63,6 +65,7 @@ Route::group([
     Route::post('createschedule',[ScheduleController::class,'create']);
     Route::post('updateschedule',[ScheduleController::class, 'update']);
 
+
     Route::get('getconsultations',[ConsultationController::class,'getConsultations']);
     Route::get('getapprovedconsultations',[ConsultationController::class,'getApprovedConsultations']);
     Route::get('getdeclinedconsultations',[ConsultationController::class,'getDeclinedConsultations']);
@@ -70,15 +73,19 @@ Route::group([
     Route::put('approveconsultation/{id}',[ConsultationController::class,'approveConsultation']);
     Route::delete('deleteconsultation/{id}',[ConsultationController::class,'deleteConsultation']);
     Route::put('declineconsultation/{id}',[ConsultationController::class,'declineConsultation']);
+    Route::get('numberofconsultations',[ConsultationController::class,'getNbOfConsultations']);
 
 
 
     Route::get('userinfo',[UserController::class,'getUserInfo']);
     Route::post('updateprofile',[UserController::class,'updateProfile']);
+    Route::get('numberofdoctors',[UserController::class,'getNumberOfDoctors']);
+    Route::get('numberofnurses',[UserController::class,'getNumberOfNurses']);
     
     Route::post('updatepassword',[UserController::class,'updatePassword']);
     Route::get('getconsultationsbydate/{date}',[ConsultationController::class,'getConsultationByDate']);
     // Route::post('getconsultationsbydate',[ConsultationController::class,'getConsultationByDate']);
+    Route::get('getconsapp',[ConsultationController::class,'getConsApp']);
     
 
     //edit profile

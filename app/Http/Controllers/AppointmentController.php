@@ -62,17 +62,18 @@ class AppointmentController extends Controller
     public function getAppointments()
     {
         // $appointments = Appointment::all()->where('approved', 0);
-        
-        $appointments = Appointment::all();
+        $appointmentsArray = array();
+        $appointments = Appointment::all()->where('approved', 0);
         foreach ($appointments as $appointment) {
             $appointment->section;
-            $appointmentArray = $appointment;
+            $appointmentsArray[] = $appointment;
         }
-        return response()->json($appointmentArray, 200);
+        return response()->json($appointmentsArray, 200);
     }
 
     public function getApprovedAppointments()
     {
+        $appointmentsArray = array();
         $appointments = Appointment::all()->where('approved', 1);
         foreach ($appointments as $appointment) {
             $appointment->section;
@@ -89,7 +90,7 @@ class AppointmentController extends Controller
     
     public function getDeclinedAppointments()
     {
-        
+        $appointmentsArray = array();
         $appointments = Appointment::all()->where('approved', 2);
         foreach ($appointments as $appointment) {
             $appointment->section;

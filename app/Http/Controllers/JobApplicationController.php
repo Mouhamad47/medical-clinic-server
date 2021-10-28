@@ -58,5 +58,12 @@ class JobApplicationController extends Controller
         return response()->json($job_application, 200);
     }
 
+    public function getNumberOfCandidates(){
+        $candidates = JobApplication::all();
+        $number_of_candidates = count($candidates);
+        return response()->json($number_of_candidates, 200);
+
+    }
+
 
 }

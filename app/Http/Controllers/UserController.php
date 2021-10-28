@@ -64,6 +64,20 @@ class UserController extends Controller
 		], 201);
 	}
 
+	public function getNumberOfDoctors(){
+		$doctor = User::all()->where('role', 2);
+		$number_of_doctors = count($doctor);
+        return response()->json($number_of_doctors, 200);
+
+	}
+	public function getNumberOfNurses(){
+		$nurse = User::all()->where('role',3);
+		$number_of_nurses = count($nurse);
+        return response()->json($number_of_nurses, 200);
+
+
+	}
+
 	// public function updatePassword(Request $request)
 	// {
 	// 	$user = Auth::user();
