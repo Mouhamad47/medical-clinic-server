@@ -47,6 +47,9 @@ Route::group([
 
     Route::get('getalldoctors',[UserController::class, 'getAllDoctors']);
     Route::get('getallnurses',[UserController::class, 'getAllNurses']);
+    Route::delete('deletedoctor/{id}',[UserController::class,'deleteDoctor']);
+    Route::delete('deletenurse/{id}',[UserController::class,'deleteNurse']);
+
 
     Route::get('getjobapp',[JobApplicationController::class , 'getJobApp']);
     Route::post('createjobapp',[JobApplicationController::class,'create']);

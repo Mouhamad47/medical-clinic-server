@@ -23,9 +23,8 @@ class ConsultationController extends Controller
             'phone_number'           => 'required|string|between:2,8',
             'address'                => 'required|string|between:2,100',
             'start_hour'             => 'required',
-            'end_hour'               => 'required',
+            // 'end_hour'               => 'required',
             'date_of_consultation'   => 'required',
-            // 'approved'               => 'required',
             'major_id'               => 'required',
         ]);
 
@@ -35,11 +34,18 @@ class ConsultationController extends Controller
                 "errors" => $validator->errors()
             ), 400);
         }
+        $time = date("H:i",strtotime($request->start_hour));
+        
+        $end_hour_request = strtotime($time) + 1800;
+        $end_hour = date("H:i",$end_hour_request);
+        
 
-        $consultation = Consultation::create(
+        $consultation = Consultation::create(array_merge(
+             $validator->validated(),
+             ['end_hour'=>$end_hour]
+        )
 
-            $validator->validated(),
-
+          
         );
 
         return response()->json([
@@ -193,8 +199,8 @@ class ConsultationController extends Controller
 
         for ($i = 0; $i < sizeof($cons_month); $i++) {
             $cons_app_array[$i][0] = $cons_month[$i];
-            $cons_app_array[$i][1] = $consultation_array[$i+1];
-            $cons_app_array[$i][2] = $appointment_array[$i+1];
+            $cons_app_array[$i][1] = $consultation_array[$i + 1];
+            $cons_app_array[$i][2] = $appointment_array[$i + 1];
         }
 
 

@@ -77,6 +77,18 @@ class UserController extends Controller
 
 
 	}
+	public function deleteDoctor($id){
+		$doctor = User::where('id',$id);
+		$doctor ->delete();
+		return json_encode('Doctor was deleted ');
+
+	}
+	public function deleteNurse($id){
+		$nurse = User::where('id',$id);
+		$nurse ->delete();
+		return json_encode('Nurse was deleted ');
+
+	}
 
 	// public function updatePassword(Request $request)
 	// {
