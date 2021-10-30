@@ -34,18 +34,19 @@ class ConsultationController extends Controller
                 "errors" => $validator->errors()
             ), 400);
         }
-        $time = date("H:i",strtotime($request->start_hour));
-        
+        $time = date("H:i", strtotime($request->start_hour));
+
         $end_hour_request = strtotime($time) + 1800;
-        $end_hour = date("H:i",$end_hour_request);
-        
+        $end_hour = date("H:i", $end_hour_request);
 
-        $consultation = Consultation::create(array_merge(
-             $validator->validated(),
-             ['end_hour'=>$end_hour]
-        )
 
-          
+        $consultation = Consultation::create(
+            array_merge(
+                $validator->validated(),
+                ['end_hour' => $end_hour]
+            )
+
+
         );
 
         return response()->json([
@@ -206,5 +207,42 @@ class ConsultationController extends Controller
 
 
         return response()->json($cons_app_array, 200);
+    }
+
+    public function getConsPieChart()
+    {
+        $consultation = Consultation::select(DB::raw('majors.name, COUNT(consultations.id) AS number_of_patients'))
+            ->join('majors', 'consultations.major_id', '=', 'majors.id')
+            ->groupBy('majors.name')->get();
+        $cons_array_ob = array();
+        foreach ($consultation as $cons) {
+            $cons_array_ob[] = $cons;
+        }
+        $cons_array = array(array());
+        for ($i = 0; $i < sizeof($consultation); $i++) {
+            $cons_array[$i][0] = $cons_array_ob[$i]['name'];
+            $cons_array[$i][1] = $cons_array_ob[$i]['number_of_patients'];
+        }
+        return response()->json($cons_array, 200);
+    }
+
+    public function getUsedSlots($date, $major_id)
+    {
+        $consultation = Consultation::select('start_hour')->where('date_of_consultation', $date)->where('major_id', $major_id)->get();
+        $array = array();
+       
+        // foreach ($consultation as $cons) {
+        //     $array1[]= $cons;
+        // }
+        // dd($array1[0]['start_hour']);
+        for ($i = 0; $i < sizeof($consultation); $i++) {
+            $time = strtotime($consultation[$i]['start_hour']);
+            $array[] = date("H:i", $time);
+        }
+        // for ($j = 0; $j < sizeof($array); $j++) {
+        //     $array1[$j][0] = $array[$j];
+        // }
+        // dd($array);
+        return response()->json($array, 200);
     }
 }

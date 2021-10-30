@@ -42,58 +42,61 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
 
-    Route::get('getmajors',[MajorController::class,'getMajors']);
-    Route::get('getlasttwomajors',[MajorController::class,'lastTwo']);
+    Route::get('getmajors', [MajorController::class, 'getMajors']);
+    Route::get('getlasttwomajors', [MajorController::class, 'lastTwo']);
 
-    Route::get('getalldoctors',[UserController::class, 'getAllDoctors']);
-    Route::get('getallnurses',[UserController::class, 'getAllNurses']);
-    Route::delete('deletedoctor/{id}',[UserController::class,'deleteDoctor']);
-    Route::delete('deletenurse/{id}',[UserController::class,'deleteNurse']);
-
-
-    Route::get('getjobapp',[JobApplicationController::class , 'getJobApp']);
-    Route::post('createjobapp',[JobApplicationController::class,'create']);
-    Route::get('declinejobapp/{id}',[JobApplicationController::class,'decline']);
-    Route::get('numberofcandidates',[JobApplicationController::class, 'getNumberOfCandidates']);
-
-    Route::get('getappointments',[AppointmentController::class, 'getAppointments']);
-    Route::get('getapprovedappointments',[AppointmentController::class, 'getApprovedAppointments']);
-    Route::get('getdeclinedappointments',[AppointmentController::class, 'getDeclinedAppointments']);
-    Route::post('createappointment',[AppointmentController::class,'create']);
-    Route::put('approveappointment/{id}',[AppointmentController::class,'approve']);
-    Route::get('deleteappointment/{id}',[AppointmentController::class,'delete']);
-    Route::put('declineappointment/{id}',[AppointmentController::class,'decline']);
-
-    Route::get('getschedules',[ScheduleController::class,'getSchedules']);
-    Route::post('createschedule',[ScheduleController::class,'create']);
-    Route::post('updateschedule',[ScheduleController::class, 'update']);
+    Route::get('getalldoctors', [UserController::class, 'getAllDoctors']);
+    Route::get('getallnurses', [UserController::class, 'getAllNurses']);
+    Route::delete('deletedoctor/{id}', [UserController::class, 'deleteDoctor']);
+    Route::delete('deletenurse/{id}', [UserController::class, 'deleteNurse']);
 
 
-    Route::get('getconsultations',[ConsultationController::class,'getConsultations']);
-    Route::get('getapprovedconsultations',[ConsultationController::class,'getApprovedConsultations']);
-    Route::get('getdeclinedconsultations',[ConsultationController::class,'getDeclinedConsultations']);
-    Route::post('createconsultation',[ConsultationController::class,'createConsultation']);
-    Route::put('approveconsultation/{id}',[ConsultationController::class,'approveConsultation']);
-    Route::delete('deleteconsultation/{id}',[ConsultationController::class,'deleteConsultation']);
-    Route::put('declineconsultation/{id}',[ConsultationController::class,'declineConsultation']);
-    Route::get('numberofconsultations',[ConsultationController::class,'getNbOfConsultations']);
+    Route::get('getjobapp', [JobApplicationController::class, 'getJobApp']);
+    Route::post('createjobapp', [JobApplicationController::class, 'create']);
+    Route::get('declinejobapp/{id}', [JobApplicationController::class, 'decline']);
+    Route::get('numberofcandidates', [JobApplicationController::class, 'getNumberOfCandidates']);
+
+    Route::get('getappointments', [AppointmentController::class, 'getAppointments']);
+    Route::get('getapprovedappointments', [AppointmentController::class, 'getApprovedAppointments']);
+    Route::get('getdeclinedappointments', [AppointmentController::class, 'getDeclinedAppointments']);
+    Route::post('createappointment', [AppointmentController::class, 'create']);
+    Route::put('approveappointment/{id}', [AppointmentController::class, 'approve']);
+    Route::get('deleteappointment/{id}', [AppointmentController::class, 'delete']);
+    Route::put('declineappointment/{id}', [AppointmentController::class, 'decline']);
+
+    Route::get('getschedules', [ScheduleController::class, 'getSchedules']);
+    Route::post('createschedule', [ScheduleController::class, 'create']);
+    Route::post('updateschedule', [ScheduleController::class, 'update']);
+
+
+    Route::get('getconsultations', [ConsultationController::class, 'getConsultations']);
+    Route::get('getapprovedconsultations', [ConsultationController::class, 'getApprovedConsultations']);
+    Route::get('getdeclinedconsultations', [ConsultationController::class, 'getDeclinedConsultations']);
+    Route::post('createconsultation', [ConsultationController::class, 'createConsultation']);
+    Route::put('approveconsultation/{id}', [ConsultationController::class, 'approveConsultation']);
+    Route::delete('deleteconsultation/{id}', [ConsultationController::class, 'deleteConsultation']);
+    Route::put('declineconsultation/{id}', [ConsultationController::class, 'declineConsultation']);
+    Route::get('numberofconsultations', [ConsultationController::class, 'getNbOfConsultations']);
+    Route::get('getconspiechart',[ConsultationController::class,'getConsPieChart']);
+    Route::get('getusedconsslots/{date}/{major_id}',[ConsultationController::class,'getUsedSlots']);
 
 
 
-    Route::get('userinfo',[UserController::class,'getUserInfo']);
-    Route::post('updateprofile',[UserController::class,'updateProfile']);
-    Route::get('numberofdoctors',[UserController::class,'getNumberOfDoctors']);
-    Route::get('numberofnurses',[UserController::class,'getNumberOfNurses']);
-    
-    Route::post('updatepassword',[UserController::class,'updatePassword']);
-    Route::get('getconsultationsbydate/{date}',[ConsultationController::class,'getConsultationByDate']);
+
+    Route::get('userinfo', [UserController::class, 'getUserInfo']);
+    Route::post('updateprofile', [UserController::class, 'updateProfile']);
+    Route::get('numberofdoctors', [UserController::class, 'getNumberOfDoctors']);
+    Route::get('numberofnurses', [UserController::class, 'getNumberOfNurses']);
+
+    Route::post('updatepassword', [UserController::class, 'updatePassword']);
+    Route::get('getconsultationsbydate/{date}', [ConsultationController::class, 'getConsultationByDate']);
     // Route::post('getconsultationsbydate',[ConsultationController::class,'getConsultationByDate']);
-    Route::get('getconsapp',[ConsultationController::class,'getConsApp']);
-    
+    Route::get('getconsapp', [ConsultationController::class, 'getConsApp']);
+
 
     //edit profile
     // Route::post('updateprofile',[User::class, 'updateProfile']);
-    
+
 
 
 
@@ -101,5 +104,3 @@ Route::group([
 
 
 });
-
-
