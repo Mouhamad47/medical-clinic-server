@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->date('date_of_employment');
             $table->integer('role');// 1 for admin 2 for doctors 3 for nurses
             $table->foreignId('major_id')->constrained('majors');
+            $table->longText('uid')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

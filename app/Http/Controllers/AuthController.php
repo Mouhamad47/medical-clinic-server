@@ -18,7 +18,6 @@ class AuthController extends Controller
     {
         // $this->middleware('auth:api', ['except' => ['login', 'register']]);
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
-
     }
 
     /**
@@ -59,8 +58,8 @@ class AuthController extends Controller
             'address'    => 'required|string|between:2,100',
             'major_id'      => 'required|integer|between:1,10',
             'role'       => 'required|integer|between:1,3',
-            // 'user_id'    => 'required|integer',
-            
+            'uid'    => 'string',
+
 
         ]);
 
@@ -73,7 +72,8 @@ class AuthController extends Controller
 
         $user = User::create(array_merge(
             $validator->validated(),
-            ['password' => bcrypt($request->password),'date_of_employment' => now()]
+            ['password' => bcrypt($request->password), 'date_of_employment' => now()],
+            ['fcm_token' => null]
         ));
 
         return response()->json([
@@ -132,4 +132,6 @@ class AuthController extends Controller
             'user' => auth()->user()
         ]);
     }
+
+    
 }

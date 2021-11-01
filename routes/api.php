@@ -41,6 +41,7 @@ Route::group([
     Route::get('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
+    Route::get('getalluerexceptlogged/{id}',[UserController::class,'selectAllUserExceptLogged']);
 
     Route::get('getmajors', [MajorController::class, 'getMajors']);
     Route::get('getlasttwomajors', [MajorController::class, 'lastTwo']);
@@ -77,8 +78,11 @@ Route::group([
     Route::delete('deleteconsultation/{id}', [ConsultationController::class, 'deleteConsultation']);
     Route::put('declineconsultation/{id}', [ConsultationController::class, 'declineConsultation']);
     Route::get('numberofconsultations', [ConsultationController::class, 'getNbOfConsultations']);
-    Route::get('getconspiechart',[ConsultationController::class,'getConsPieChart']);
-    Route::get('getusedconsslots/{date}/{major_id}',[ConsultationController::class,'getUsedSlots']);
+    Route::get('getconspiechart', [ConsultationController::class, 'getConsPieChart']);
+    Route::get('getusedconsslots/{date}/{major_id}', [ConsultationController::class, 'getUsedSlots']);
+    Route::get('getdots', [ConsultationController::class, 'returnDots']);
+
+
 
 
 
@@ -92,6 +96,7 @@ Route::group([
     Route::get('getconsultationsbydate/{date}', [ConsultationController::class, 'getConsultationByDate']);
     // Route::post('getconsultationsbydate',[ConsultationController::class,'getConsultationByDate']);
     Route::get('getconsapp', [ConsultationController::class, 'getConsApp']);
+    // Route::post('storeuid', [UserController::class, 'storeToken']);
 
 
     //edit profile

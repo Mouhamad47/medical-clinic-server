@@ -245,4 +245,40 @@ class ConsultationController extends Controller
         // dd($array);
         return response()->json($array, 200);
     }
+
+    public function returnDots(){
+        // $user = Auth::user();
+        // {
+        //     '2021-10-17':
+        //     { dots:
+        //         [massage]
+        //     }
+        // }
+        ////
+        $user = Auth::user();
+        $major = $user->major->id;
+        // $consultation = Consultation::where('major_id', $major)
+        //     ->where('date_of_consultation', $date)
+        //     ->where('approved', 1)
+        //     ->get();
+        $consultation = Consultation::select('date_of_consultation')->where('major_id',$major)
+                                                                    ->where('approved',1)->get();
+        $dots = array();
+        // $dots [0]= "message";
+        $object = (object) [
+            'color' => 'red',
+            
+          ];
+        $array = array();
+        foreach($consultation as $cons){
+            $date = $cons->date_of_consultation;
+            $a1 = array(
+                $date=>array(
+                    'dots'=>$object
+                )    
+            );
+            $array[] = $a1;
+        }
+        return response()->json($array, 200);
+    }
 }

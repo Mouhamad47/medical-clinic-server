@@ -89,6 +89,14 @@ class UserController extends Controller
 		return json_encode('Nurse was deleted ');
 
 	}
+	public function selectAllUserExceptLogged($id){
+		$array = array();
+		$user = User::all()->where('id', '!=',$id);
+		foreach($user as $u){
+			$array[] = $u;
+		}
+		return response()->json($array);
+	}
 
 	// public function updatePassword(Request $request)
 	// {
