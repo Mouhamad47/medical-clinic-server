@@ -10,6 +10,7 @@ use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
 use App\Models\Appointment;
 use App\Models\Consultation;
@@ -46,6 +47,9 @@ Route::group([
     Route::get('getmajors', [MajorController::class, 'getMajors']);
     Route::get('getlasttwomajors', [MajorController::class, 'lastTwo']);
 
+    Route::get('getsections', [SectionController::class, 'getSections']);
+    
+
     Route::get('getalldoctors', [UserController::class, 'getAllDoctors']);
     Route::get('getallnurses', [UserController::class, 'getAllNurses']);
     Route::delete('deletedoctor/{id}', [UserController::class, 'deleteDoctor']);
@@ -60,10 +64,12 @@ Route::group([
     Route::get('getappointments', [AppointmentController::class, 'getAppointments']);
     Route::get('getapprovedappointments', [AppointmentController::class, 'getApprovedAppointments']);
     Route::get('getdeclinedappointments', [AppointmentController::class, 'getDeclinedAppointments']);
-    Route::post('createappointment', [AppointmentController::class, 'create']);
+    Route::post('createappointment', [AppointmentController::class, 'createAppointment']);
     Route::put('approveappointment/{id}', [AppointmentController::class, 'approve']);
     Route::get('deleteappointment/{id}', [AppointmentController::class, 'delete']);
     Route::put('declineappointment/{id}', [AppointmentController::class, 'decline']);
+    Route::get('getusedappslots/{date}/{section_id}', [AppointmentController::class, 'getUsedSlots']);
+
 
     Route::get('getschedules', [ScheduleController::class, 'getSchedules']);
     Route::post('createschedule', [ScheduleController::class, 'create']);

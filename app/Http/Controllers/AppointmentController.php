@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AppointmentController extends Controller
 {
-    public function create(Request $request)
+    public function createAppointment(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'first_name'          => 'required|string|between:2,100',
@@ -16,9 +16,7 @@ class AppointmentController extends Controller
             'phone_number'        => 'required|string|between:2,8',
             'address'             => 'required|string|between:2,100',
             'start_hour'          => 'required',
-            'end_hour'            => 'required',
             'date_of_appointment' => 'required',
-            // 'approved'            => 'required',
             'section_id'          => 'required'
         ]);
 
@@ -28,17 +26,24 @@ class AppointmentController extends Controller
                 "errors" => $validator->errors()
             ), 400);
         }
+        $time = date("H:i", strtotime($request->start_hour));
 
-        $user = Appointment::create(
+        $end_hour_request = strtotime($time) + 3600;
+        $end_hour = date("H:i", $end_hour_request);
 
-            $validator->validated(),
+        $appointment = Appointment::create(
+            array_merge(
+                $validator->validated(),
+                ['end_hour' => $end_hour]
+            )
+
 
         );
 
         return response()->json([
             'status' => true,
-            'message' => 'User successfully registered',
-            'user' => $user
+            'message' => 'Appointment successfully booked',
+            'user' => $appointment
         ], 201);
     }
 
@@ -97,5 +102,18 @@ class AppointmentController extends Controller
             $appointmentsArray[] = $appointment;
         }
         return response()->json($appointmentsArray, 200);
+    }
+
+    public function getUsedSlots($date, $section_id)
+    {
+        $appointment = Appointment::select('start_hour')->where('date_of_appointment', $date)->where('section_id', $section_id)->get();
+        $array = array();
+       
+        for ($i = 0; $i < sizeof($appointment); $i++) {
+            $time = strtotime($appointment[$i]['start_hour']);
+            $array[] = date("H:i", $time);
+        }
+      
+        return response()->json($array, 200);
     }
 }

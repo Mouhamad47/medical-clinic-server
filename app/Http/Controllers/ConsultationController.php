@@ -23,7 +23,6 @@ class ConsultationController extends Controller
             'phone_number'           => 'required|string|between:2,8',
             'address'                => 'required|string|between:2,100',
             'start_hour'             => 'required',
-            // 'end_hour'               => 'required',
             'date_of_consultation'   => 'required',
             'major_id'               => 'required',
         ]);
@@ -51,23 +50,47 @@ class ConsultationController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Consultation successfully registered',
+            'message' => 'Consultation successfully booked',
             'consultation' => $consultation
         ], 201);
     }
+//     $consultation = Consultation::select(DB::raw('majors.name, COUNT(consultations.id) AS number_of_patients'))
+//     ->join('majors', 'consultations.major_id', '=', 'majors.id')
+//     ->groupBy('majors.name')->get();
+// $cons_array_ob = array();
+// foreach ($consultation as $cons) {
+//     $cons_array_ob[] = $cons;
+// }
+// $cons_array = array(array());
+// for ($i = 0; $i < sizeof($consultation); $i++) {
+//     $cons_array[$i][0] = $cons_array_ob[$i]['name'];
+//     $cons_array[$i][1] = $cons_array_ob[$i]['number_of_patients'];
+// }
+// return response()->json($cons_array, 200);
 
 
 
     public function getConsultations()
-    {
+    {   
         $consultationsArray = array();
-        $consultations = Consultation::all()->where('approved', 0);
-        foreach ($consultations as $consultation) {
-            $consultation->major;
-            $consultationsArray[] = $consultation;
-        }
-        return response()->json($consultationsArray, 200);
+        // $consultations = Consultation::all()->where('approved', 0);
+        // $consultations = DB::select(DB::raw("Select * from consultations, users.id, majors.name where consultations.major_id = users.major_id AND consultations.major_id = majors.id "));
+           
+        // $consultations = DB::table('consultations',)->join('users','users.major_id','=','consultations.major_id')->join('majors','consultations.major_id','=','majors.id')->get();
+        $consultations = DB::table('consultations')->where('approved',0)
+                            ->join('majors','majors.id','=','consultations.major_id')
+                            ->join('users', 'users.major_id','=','consultations.major_id')
+                            ->select('consultations.*','users.id as user_id','majors.name as major_name')
+                            ->get();
+        // foreach ($consultations as $consultation) {
+        //     $consultation->major;
+            
+        //     $consultationsArray[] = $consultation;
+        // }
+        return response()->json($consultations, 200);
     }
+
+
     public function getApprovedConsultations()
     {
         $consultationsArray = array();
@@ -116,9 +139,6 @@ class ConsultationController extends Controller
             ->where('approved', 1)
             ->get();
 
-
-
-
         return response()->json($consultation, 200);
     }
 
@@ -134,24 +154,6 @@ class ConsultationController extends Controller
         return response()->json($number_of_consultations, 200);
     }
 
-    // public function getConsApp()
-    // {
-    //     $consultation = Consultation::all();
-    //     $cons_month = array();
-    //     foreach ($consultation as $cons) {
-    //         $cons_date = $cons->date_of_consultation;
-    //         $month = date("m", strtotime($cons_date));
-
-
-    //         for ($i = 1; $i <= 12; $i++) {
-    //             if ($month == $i) {
-    //                 $cons_month[$i] = 0;
-    //                 $cons_month[$i] = $var + 1;
-
-    //             }
-    //         }
-    //     }
-    // }
     public function getConsApp()
     {
 
@@ -231,18 +233,11 @@ class ConsultationController extends Controller
         $consultation = Consultation::select('start_hour')->where('date_of_consultation', $date)->where('major_id', $major_id)->get();
         $array = array();
        
-        // foreach ($consultation as $cons) {
-        //     $array1[]= $cons;
-        // }
-        // dd($array1[0]['start_hour']);
         for ($i = 0; $i < sizeof($consultation); $i++) {
             $time = strtotime($consultation[$i]['start_hour']);
             $array[] = date("H:i", $time);
         }
-        // for ($j = 0; $j < sizeof($array); $j++) {
-        //     $array1[$j][0] = $array[$j];
-        // }
-        // dd($array);
+      
         return response()->json($array, 200);
     }
 

@@ -98,39 +98,38 @@ class UserController extends Controller
 		return response()->json($array);
 	}
 
-	// public function updatePassword(Request $request)
-	// {
-	// 	$user = Auth::user();
-	// 	$id = $user->id;
+	public function updatePassword(Request $request)
+	{
+		$user = Auth::user();
+		$id = $user->id;
 
-	// 	$validator = Validator::make($request->all(), [
-	// 		'current_password' => 'string|between:2,100',
-	// 		'new_password' => 'string|between:2,100',
+		$validator = Validator::make($request->all(), [
+			'current_password' => 'string|between:2,100',
+			'new_password' => 'string|between:2,100',
 
-	// 	]);
-	// 	if ($validator->fails()) {
-	// 		return response()->json(array(
-	// 			"status" => false,
-	// 			"errors" => $validator->errors()
-	// 		), 400);
-	// 	}
-	// 	$password = $user->password;
-	// 	$hased_password = bcrypt($request->current_password) ;
-	// 	$current_password = password_verify($password,$hased_password);
-	// 	// $new_password = bcrypt($request->new_password) ;
-	// 	// if ($password == $current_password) {
-	// 	// 	$update_profile = User::where('id', $id)->update('password',$request->new_password);
-	// 	// 	return response()->json([
-	// 	// 		'status' => true,
-	// 	// 		'message' => 'Password was successfully updated',
-	// 	// 	], 201);
-	// 	// }
-	// 	// else{
-	// 	// 	return response()->json([
-	// 	// 		'status' => false,
-	// 	// 		'message' => 'Wrong password ',
-	// 	// 	], 404);
-	// 	// }
-	// 	dd($password,$current_password);
-	// }
+		]);
+		if ($validator->fails()) {
+			return response()->json(array(
+				"status" => false,
+				"errors" => $validator->errors()
+			), 400);
+		}
+		$password = $user->password;
+		$hashed_password = bcrypt($request->current_password) ;
+		$new_password_hashed = bcrypt($request->new_password) ;
+		// if ($password == $hashed_password) {
+		// 	$update_profile = User::where('id', $id)->update('password',$new_password_hashed);
+		// 	return response()->json([
+		// 		'status' => true,
+		// 		'message' => 'Password was successfully updated',
+		// 	], 201);
+		// }
+		// else{
+		// 	return response()->json([
+		// 		'status' => false,
+		// 		'message' => 'Wrong password ',
+		// 	], 404);
+		// }
+		dd($password,$hashed_password,$new_password_hashed);
+	}
 }

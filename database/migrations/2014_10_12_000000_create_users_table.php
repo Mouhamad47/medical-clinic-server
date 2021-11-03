@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->longText('password');
             $table->string('address');
             $table->date('date_of_employment');
             $table->integer('role');// 1 for admin 2 for doctors 3 for nurses
