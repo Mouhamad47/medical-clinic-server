@@ -276,4 +276,16 @@ class ConsultationController extends Controller
         }
         return response()->json($array, 200);
     }
+
+    public function getNumberOfConsultationsPerDoctor(){
+        $user = Auth::user();
+        $id = $user->id;
+        $consultation = Consultation::select(DB::raw('COUNT(consultations.id) AS number_of_patients'))
+            ->join('majors', 'consultations.major_id', '=', 'majors.id')
+            ->join('users','users.id','=',$id)
+            ->get();
+        
+        return response()->json($consultation, 200);
+    
+        }
 }

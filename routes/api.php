@@ -54,6 +54,8 @@ Route::group([
     Route::get('getallnurses', [UserController::class, 'getAllNurses']);
     Route::delete('deletedoctor/{id}', [UserController::class, 'deleteDoctor']);
     Route::delete('deletenurse/{id}', [UserController::class, 'deleteNurse']);
+    Route::get('getLoggedDoctor',[UserController::class,'getAuthenticatedDoctor']);
+    
 
 
     Route::get('getjobapp', [JobApplicationController::class, 'getJobApp']);
@@ -87,6 +89,8 @@ Route::group([
     Route::get('getconspiechart', [ConsultationController::class, 'getConsPieChart']);
     Route::get('getusedconsslots/{date}/{major_id}', [ConsultationController::class, 'getUsedSlots']);
     Route::get('getdots', [ConsultationController::class, 'returnDots']);
+    Route::get('getnumberofconsultations',[ConsultationController::class,'getNumberOfConsultationsPerDoctor']);
+
 
 
 
