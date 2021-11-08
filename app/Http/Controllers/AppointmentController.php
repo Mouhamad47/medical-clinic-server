@@ -66,7 +66,7 @@ class AppointmentController extends Controller
 
     public function getAppointments()
     {
-        // $appointments = Appointment::all()->where('approved', 0);
+
         $appointmentsArray = array();
         $appointments = Appointment::all()->where('approved', 0);
         foreach ($appointments as $appointment) {
@@ -92,7 +92,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::where('id', $id)->update(['approved' => 2]);
         return json_encode('Appointment was declined');
     }
-    
+
     public function getDeclinedAppointments()
     {
         $appointmentsArray = array();
@@ -108,12 +108,12 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::select('start_hour')->where('date_of_appointment', $date)->where('section_id', $section_id)->get();
         $array = array();
-       
+
         for ($i = 0; $i < sizeof($appointment); $i++) {
             $time = strtotime($appointment[$i]['start_hour']);
             $array[] = date("H:i", $time);
         }
-      
+
         return response()->json($array, 200);
     }
 }

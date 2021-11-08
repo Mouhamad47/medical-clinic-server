@@ -11,20 +11,20 @@ class UserController extends Controller
 {
 
 	public function getAllDoctors()
-	{	
+	{
 		$doctors = User::where('role', 2)->get();
 		foreach ($doctors as $doctor) {
 			$doctor->major;
 		}
 		return json_decode($doctors);
 	}
-	
+
 	public function getAuthenticatedDoctor()
-	{	
-		
+	{
+
 		$user = Auth::user();
 		$id = $user->id;
-		$doctor = User::where('id',$id)->get();
+		$doctor = User::where('id', $id)->get();
 		foreach ($doctor as $doc) {
 			$doc->major->name;
 		}
@@ -130,21 +130,16 @@ class UserController extends Controller
 		$hashed_password = bcrypt($request->current_password);
 		$new_password_hashed = bcrypt($request->new_password);
 		if ($password == $hashed_password) {
-			$update_profile = User::where('id', $id)->update('password',$new_password_hashed);
+			$update_profile = User::where('id', $id)->update('password', $new_password_hashed);
 			return response()->json([
 				'status' => true,
 				'message' => 'Password was successfully updated',
 			], 201);
-		}
-		else{
+		} else {
 			return response()->json([
 				'status' => false,
 				'message' => 'Wrong password ',
 			], 404);
 		}
-		
 	}
-
-
-
 }

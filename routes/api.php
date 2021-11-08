@@ -42,21 +42,19 @@ Route::group([
     Route::get('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
-    Route::get('getalluerexceptlogged/{id}',[UserController::class,'selectAllUserExceptLogged']);
+    Route::get('getalluerexceptlogged/{id}', [UserController::class, 'selectAllUserExceptLogged']);
 
     Route::get('getmajors', [MajorController::class, 'getMajors']);
     Route::get('getlasttwomajors', [MajorController::class, 'lastTwo']);
 
     Route::get('getsections', [SectionController::class, 'getSections']);
-    
+
 
     Route::get('getalldoctors', [UserController::class, 'getAllDoctors']);
     Route::get('getallnurses', [UserController::class, 'getAllNurses']);
     Route::delete('deletedoctor/{id}', [UserController::class, 'deleteDoctor']);
     Route::delete('deletenurse/{id}', [UserController::class, 'deleteNurse']);
-    Route::get('getLoggedDoctor',[UserController::class,'getAuthenticatedDoctor']);
-    
-
+    Route::get('getLoggedDoctor', [UserController::class, 'getAuthenticatedDoctor']);
 
     Route::get('getjobapp', [JobApplicationController::class, 'getJobApp']);
     Route::post('createjobapp', [JobApplicationController::class, 'create']);
@@ -72,11 +70,9 @@ Route::group([
     Route::put('declineappointment/{id}', [AppointmentController::class, 'decline']);
     Route::get('getusedappslots/{date}/{section_id}', [AppointmentController::class, 'getUsedSlots']);
 
-
     Route::get('getschedules', [ScheduleController::class, 'getSchedules']);
     Route::post('createschedule', [ScheduleController::class, 'create']);
     Route::post('updateschedule', [ScheduleController::class, 'update']);
-
 
     Route::get('getconsultations', [ConsultationController::class, 'getConsultations']);
     Route::get('getapprovedconsultations', [ConsultationController::class, 'getApprovedConsultations']);
@@ -89,13 +85,7 @@ Route::group([
     Route::get('getconspiechart', [ConsultationController::class, 'getConsPieChart']);
     Route::get('getusedconsslots/{date}/{major_id}', [ConsultationController::class, 'getUsedSlots']);
     Route::get('getdots', [ConsultationController::class, 'returnDots']);
-    Route::get('getnumberofconsultations',[ConsultationController::class,'getNumberOfConsultationsPerDoctor']);
-
-
-
-
-
-
+    Route::get('getnumberofconsultations', [ConsultationController::class, 'getNumberOfConsultationsPerDoctor']);
 
     Route::get('userinfo', [UserController::class, 'getUserInfo']);
     Route::post('updateprofile', [UserController::class, 'updateProfile']);
@@ -104,18 +94,5 @@ Route::group([
 
     Route::post('updatepassword', [UserController::class, 'updatePassword']);
     Route::get('getconsultationsbydate/{date}', [ConsultationController::class, 'getConsultationByDate']);
-    // Route::post('getconsultationsbydate',[ConsultationController::class,'getConsultationByDate']);
     Route::get('getconsapp', [ConsultationController::class, 'getConsApp']);
-    // Route::post('storeuid', [UserController::class, 'storeToken']);
-
-
-    //edit profile
-    // Route::post('updateprofile',[User::class, 'updateProfile']);
-
-
-
-
-
-
-
 });

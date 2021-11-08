@@ -32,11 +32,7 @@ class JobApplicationController extends Controller
 
 
         );
-        // $user = JobApplication::create(array_merge(
-        //     $validator->validated(),
-        // 	['password' => bcrypt($request->password)]
 
-        // ));
 
         return response()->json([
             'status' => true,
@@ -45,25 +41,23 @@ class JobApplicationController extends Controller
         ], 201);
     }
 
-    public function decline($id){
-        $job_application = JobApplication::where('id',$id);
-        $job_application->delete();  
-		return json_encode('Job Application Declined ');
-
+    public function decline($id)
+    {
+        $job_application = JobApplication::where('id', $id);
+        $job_application->delete();
+        return json_encode('Job Application Declined ');
     }
-    
+
     public function getJobApp()
     {
         $job_application = JobApplication::all();
         return response()->json($job_application, 200);
     }
 
-    public function getNumberOfCandidates(){
+    public function getNumberOfCandidates()
+    {
         $candidates = JobApplication::all();
         $number_of_candidates = count($candidates);
         return response()->json($number_of_candidates, 200);
-
     }
-
-
 }

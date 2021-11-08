@@ -37,39 +37,39 @@ class ScheduleController extends Controller
         ], 201);
     }
 
-    public function update(Request $request){
-        $id =$request->id;
+    public function update(Request $request)
+    {
+        $id = $request->id;
         $validator = Validator::make($request->all(), [
-			// 'dob' => 'required|date_format:Y-m-d|before:' . Carbon::now()->subYears(18)->format('Y-m-d'),
-			'id' => 'required|integer',
+
+            'id' => 'required|integer',
             'start_hour'       => 'required',
             'end_hour'         => 'required',
             'date_of_schedule' => 'required',
             'user_id'          => 'required'
-		]);
+        ]);
 
         if ($validator->fails()) {
-			return response()->json(array(
-				"status" => false,
-				"errors" => $validator->errors()
-			), 400);
-		}
+            return response()->json(array(
+                "status" => false,
+                "errors" => $validator->errors()
+            ), 400);
+        }
 
 
         $schedule = Schedule::where('id', $id)->update(
-			$validator->validated()
-		);
+            $validator->validated()
+        );
 
-		return response()->json([
-			'status' => true,
-			'message' => 'Schedule was successfully updated',
-		], 201);
+        return response()->json([
+            'status' => true,
+            'message' => 'Schedule was successfully updated',
+        ], 201);
     }
-    
+
     public function getSchedules()
     {
         $schedule = Schedule::all();
         return response()->json($schedule, 200);
     }
-
 }
